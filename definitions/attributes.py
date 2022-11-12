@@ -9,6 +9,7 @@ class AtbsNames(Enum):
   STRENGTH = 'strength'
   DEXTERITY = 'dexterity'
   INTELLIGENCE = 'intelligence'
+  CONSTITUTION = 'constitution'
   WISDOM = 'wisdom'
   CHARISMA = 'charisma'
 
@@ -32,7 +33,7 @@ class Atbs:
   strength: Atb
   dexterity:Atb
   intelligence:Atb
-  constituion:Atb
+  constitution:Atb
   wisdom:Atb
   charisma:Atb
   def get_atb(self, atb:AtbsNames) -> Atb:

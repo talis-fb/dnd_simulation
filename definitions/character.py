@@ -1,7 +1,7 @@
 from dataclasses import dataclass 
 from typing import List,Set
 from definitions.objects import Object
-from definitions.actions import Action
+from definitions.actions import Actions
 from definitions.skills import SkillsName, Skills
 from definitions.attributes import Atbs
 
@@ -14,7 +14,7 @@ class CharacterSummary:
   xp:int = 0
 
 class Character(Object):
-  def __init__(self, summary: CharacterSummary, atbs: Atbs, skills: Set[SkillsName] = set(), actions: List[Action] = []):
+  def __init__(self, summary: CharacterSummary, atbs: Atbs, skills: Set[SkillsName] = set(), actions: Actions = Actions([])):
     self.summary = summary
     self.atbs = atbs
     self.skills = Skills(skills, self.atbs)

@@ -4,6 +4,7 @@ from typing import List,Set
 from utils.dices import Dices
 from utils.rolls import roll_basic_test
 # from definitions.skills import Skills
+from definitions.proficiencies import Proficiencies
 
 class AtbsNames(Enum):
   STRENGTH = 'strength'
@@ -20,11 +21,12 @@ class AtbsNames(Enum):
 @dataclass
 class Atb:
     value:int
-    prof_bonus:int = 0
     def roll(self) -> int:
         return roll_basic_test([ self.value ])
-    def roll_with_prof(self) -> int:
-        return roll_basic_test([ self.value, self.prof_bonus ])
+    def roll_with_bonus(self, bonus:int) -> int:
+        return roll_basic_test([ self.value, bonus ])
+    def clone_with_bonus(self, bonus: int):
+        return Atb(self.value + bonus)
 
 
 @dataclass
@@ -36,11 +38,27 @@ class Atbs:
   constitution:Atb
   wisdom:Atb
   charisma:Atb
+  proficiency_bonus:int
+  saving_throws: Set[AtbsNames] = field(default_factory=set)
+
   def get_atb(self, atb:AtbsNames) -> Atb:
       return self.__getattribute__(str(atb))
 
-  # Proficiencias
-  prof_bonus:int = 2
+  def roll(self, atb:AtbsNames) -> int:
+      return self.get_atb(atb).roll()
+
+  def is_in_saving_throw(self, atb:AtbsNames) -> bool:
+      return atb in self.saving_throws
+
+  # def clone_with_bonus(self, bonus: int):
+  #     return Atbs(
+  #         strength=self.strength.clone_with_bonus(bonus),
+  #         dexterity=self.dexterity.clone_with_bonus(bonus),
+  #         intelligence=self.intelligence.clone_with_bonus(bonus),
+  #         constitution=self.constitution.clone_with_bonus(bonus),
+  #         wisdom=self.wisdom.clone_with_bonus(bonus),
+  #         charisma=self.charisma.clone_with_bonus(bonus)
+  #     )
 
   # COMBAT
   ac:int = 15

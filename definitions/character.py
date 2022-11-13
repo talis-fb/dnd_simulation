@@ -4,9 +4,10 @@ from typing_extensions import Self
 from definitions.objects import Object
 from definitions.actions import Action
 from definitions.skills import SkillsName, Skills
-from definitions.attributes import Atbs
+from definitions.attributes import Atbs, AtbsNames
 from abc import ABC, abstractmethod 
 from random import choice
+from definitions.proficiencies import Proficiencies, ProficienciesNames
 
 @dataclass
 class CharacterSummary:
@@ -24,6 +25,28 @@ class Character(Object):
     self.itens = []
     self.actions = actions
     self.current_action: Action | None = None
+    self.proficiencies = Proficiencies(set())
+
+  def roll(self, atb: AtbsNames):
+      return self.atbs.roll(atb)
+
+  def roll_with_proficiency(self, atb: AtbsNames, prof: ProficienciesNames):
+      roll_result = self.atbs.roll(atb)
+      if self.proficiencies.contains(prof):
+          return roll_result + self.atbs.proficiency_bonus
+      else:
+          return roll_result
+
+  def roll_saving_throw(self, atb:AtbsNames):
+      roll_result = self.atbs.roll(atb)
+      if self.atbs.is_in_saving_throw(atb):
+          return roll_result + self.atbs.proficiency_bonus
+      else:
+          return roll_result
+
+  def roll_with_bonus(self, atb:AtbsNames, bonus:int):
+      roll_result = self.atbs.roll(atb)
+      return roll_result + bonus
 
   def set_randon_action(self):
     self.current_action = choice(self.actions)

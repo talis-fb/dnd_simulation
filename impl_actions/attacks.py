@@ -1,12 +1,12 @@
 from re import error
 from definitions.actions import Action
-from definitions.character import ICharacter
+from definitions.character import Character
 from utils.dices import d4, d6, d8, d10, d12, Dice, Dices
 from typing import List
 
 class IAttack_with_str_to_one_target(Action):
     damage_roll: Dices
-    def run(self, attacker: ICharacter, defender: List[ICharacter]):
+    def run(self, attacker: Character, defender: List[Character]):
         if len(defender) > 1:
             raise error('Nao pode haver mais de um alvo nessa ação')
         roll = attacker.atbs.strength.roll_with_prof()

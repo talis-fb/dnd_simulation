@@ -1,13 +1,9 @@
 from abc import ABC, abstractmethod
-from typing import List
-from definitions.character import ICharacter
-from random import choice
+from typing import List, TypeVar, Generic
 
+K = TypeVar('K')
 class Action(ABC):
-  @property
-  def is_able(self):
-    return True
-
   @abstractmethod
-  def run(self, doing: ICharacter, receiving: List[ICharacter]):
+  def run(self, doing: K, receiving: List[K]):
     pass
+

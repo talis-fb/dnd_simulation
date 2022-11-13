@@ -1,9 +1,9 @@
 from enum import Enum
 from dataclasses import dataclass, field
 from typing import List,Set
-from modules.dices import IDices, Dice, roll_test_vs
+from utils.dices import Dices
 from utils.rolls import roll_basic_test
-from modules.skills import Skills
+# from definitions.skills import Skills
 
 class AtbsNames(Enum):
   STRENGTH = 'strength'
@@ -46,4 +46,4 @@ class Atbs:
   ac:int = 15
   hp:int = 10
   hp_temp: List[int] = field(default_factory=list)
-  hp_dice: List[IDices] = field(default_factory=list)
+  hp_dice: Dices | None = None

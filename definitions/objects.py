@@ -1,5 +1,5 @@
 from dataclasses import dataclass,field
-from modules.enums import TypesDamage,Conditions
+from definitions.enums import TypesDamage,Conditions
 from typing import Set
 
 @dataclass

@@ -24,7 +24,7 @@ class Character(Object):
     self.skills = Skills(skills, self.atbs)
     self.itens = []
     self.actions = actions
-    self.current_action: Action | None = None
+    self.current_action: Action
     self.proficiencies = Proficiencies(set())
 
   ## Rolls ------------------------------------
@@ -59,5 +59,5 @@ class Character(Object):
 
   def exec(self, received: List[Self]):
     if self.current_action:
-      self.current_action.run(self, received)
+      return self.current_action.run(self, received)
 

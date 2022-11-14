@@ -8,6 +8,9 @@ class Dice:
   def roll(self):
     max = self.value
     return choice(range(1, max + 1))
+    # d = choice(range(1, max + 1))
+    # print(f' d{self.value} => {d}')
+    # return d
   def __str__(self):
     return f'd{self.value}'
 

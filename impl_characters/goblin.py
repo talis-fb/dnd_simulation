@@ -11,7 +11,7 @@ def create():
             xp=50
         ),
         Atbs(
-            strength=Atb(-1),
+            strength=Atb(1),
             dexterity=Atb(2),
             constitution=Atb(0),
             intelligence=Atb(0),
@@ -19,7 +19,7 @@ def create():
             charisma=Atb(-1),
             proficiency_bonus=2,
             ac=15,
-            hp=7,
+            hp=17,
             hp_dice=Dices(2,d6)
         ),
         set([

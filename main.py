@@ -2,23 +2,39 @@ import impl_characters.goblin as goblin
 
 def main():
     goblin1 = goblin.create()
-    print(goblin1.atbs)
-    # for i in range(20):
-    #     goblin.goblin.set_randon_action()
-    #     goblin.goblin.exec( 
-    #         [ goblin.goblin2 ],
-    #     )
-    #
-    #     print(goblin.goblin.atbs)
-    #     print(goblin.goblin2.atbs)
-    #
-    #     goblin.goblin2.set_randon_action()
-    #     goblin.goblin2.exec( 
-    #         [ goblin.goblin ],
-    #     )
-    #
-    #     print(goblin.goblin.atbs)
-    #     print(goblin.goblin2.atbs)
+    goblin2 = goblin.create()
+
+    while(goblin1.atbs.hp > 0 and goblin2.atbs.hp>0):
+        print(f" TURNO DO PRIMEIRO -------")
+        goblin1.set_randon_action()
+
+        print(f" >>> Ação: {type(goblin1.current_action).__name__}")
+        goblin1.exec([ goblin2 ])
+
+        if goblin1.current_action.success:
+            print(f" >>> SUCESSO -> {goblin1.current_action.result}")
+        else:
+            print(f" {goblin1.current_action.result}")
+
+        ### --------------
+        print(f" TURNO DO 2 -------")
+        goblin2.set_randon_action()
+
+        print(f" >>> Ação: {type(goblin2.current_action).__name__}")
+        goblin2.exec([ goblin1 ])
+
+        if goblin2.current_action.success:
+            print(f" >>> SUCESSO -> {goblin2.current_action.result}")
+        else:
+            print(f" {goblin2.current_action.result}")
+
+        print(f" *** STATUS *** ")
+        print(f"\tHP 1: {goblin1.atbs.hp}")
+        print(f"\tHP 2: {goblin2.atbs.hp} \n")
+
+    win = 1 if goblin1.atbs.hp > 0 else 2
+
+    print(f" __VENCEDOR: {win} ___")
 
 if __name__ == "__main__":
     main()

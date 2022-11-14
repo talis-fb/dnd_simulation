@@ -27,6 +27,7 @@ class Character(Object):
     self.current_action: Action | None = None
     self.proficiencies = Proficiencies(set())
 
+  ## Rolls ------------------------------------
   def roll(self, atb: AtbsNames):
       return self.atbs.roll(atb)
 
@@ -36,6 +37,10 @@ class Character(Object):
           return roll_result + self.atbs.proficiency_bonus
       else:
           return roll_result
+
+  def roll_with_proficiency_bonus(self, atb: AtbsNames):
+      roll_result = self.atbs.roll(atb)
+      return roll_result + self.atbs.proficiency_bonus
 
   def roll_saving_throw(self, atb:AtbsNames):
       roll_result = self.atbs.roll(atb)
@@ -48,6 +53,7 @@ class Character(Object):
       roll_result = self.atbs.roll(atb)
       return roll_result + bonus
 
+  ## Manage ACTIONS ---------------------------
   def set_randon_action(self):
     self.current_action = choice(self.actions)
 

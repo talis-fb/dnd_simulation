@@ -42,7 +42,7 @@ class Atbs:
   saving_throws: Set[AtbsNames] = field(default_factory=set)
 
   def get_atb(self, atb:AtbsNames) -> Atb:
-      return self.__getattribute__(str(atb))
+      return self.__getattribute__(str(atb.value))
 
   def roll(self, atb:AtbsNames) -> int:
       return self.get_atb(atb).roll()

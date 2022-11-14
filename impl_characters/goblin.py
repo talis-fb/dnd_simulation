@@ -1,43 +1,32 @@
-# from definitions.actions import Actions
 from definitions.character import Character, CharacterSummary
 from definitions.attributes import Atbs, Atb
 from definitions.skills import SkillsName
-from impl_actions.attacks import Attack_with_dagger
+from actions.impl.attacks.attacks import Attack_with_handaxe, Attack_with_bite
+from utils.dices import Dices, d6
 
-goblin = Character(
-    CharacterSummary(
-        name="Goblin",
-        level=1
-    ),
-    Atbs(
-        strength=Atb(2),
-        dexterity=Atb(2),
-        constitution=Atb(2),
-        intelligence=Atb(2),
-        wisdom=Atb(2),
-        charisma=Atb(2),
-    ),
-    set([ SkillsName.ANIMAL_HANDLING ]),
-    [
-        Attack_with_dagger(),
-    ]
-)
-
-goblin2 = Character(
-    CharacterSummary(
-        name="Goblin",
-        level=1
-    ),
-    Atbs(
-        strength=Atb(2),
-        dexterity=Atb(2),
-        constitution=Atb(2),
-        intelligence=Atb(2),
-        wisdom=Atb(2),
-        charisma=Atb(2),
-    ),
-    set([ SkillsName.ANIMAL_HANDLING ]),
-    [
-        Attack_with_dagger(),
-    ]
-)
+def create():
+    return Character(
+        CharacterSummary(
+            name="Goblin",
+            xp=50
+        ),
+        Atbs(
+            strength=Atb(-1),
+            dexterity=Atb(2),
+            constitution=Atb(0),
+            intelligence=Atb(0),
+            wisdom=Atb(-1),
+            charisma=Atb(-1),
+            proficiency_bonus=2,
+            ac=15,
+            hp=7,
+            hp_dice=Dices(2,d6)
+        ),
+        set([
+            SkillsName.STEALTH
+        ]),
+        [
+            Attack_with_bite(),
+            Attack_with_handaxe()
+        ]
+    )

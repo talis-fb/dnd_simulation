@@ -12,7 +12,7 @@ def main():
     for _ in range(500000):
         goblin1 = goblin.create()
         goblin2 = goblin.create()
-        while(not goblin1.heath.is_dead() and not goblin2.heath.is_dead()):
+        while(goblin1.heath.is_alive() and goblin2.heath.is_alive()):
             printf(f" -------- PRIMEIRO -------")
             goblin1.set_randon_action()
 
@@ -40,7 +40,7 @@ def main():
             printf(f"\tHP 1: {goblin1.heath.hp}")
             printf(f"\tHP 2: {goblin2.heath.hp} \n")
 
-        win = 1 if not goblin1.heath.is_dead() else 2
+        win = 1 if not goblin1.heath.is_alive() else 2
         ganhadores.append(win)
 
         printf(f" #######################")

@@ -1,5 +1,5 @@
-from core.dices import Dices, d6
-from core.enums.proficiencies import ProficienciesNames
+from src.core.dices import Dices, d6
+from src.core.enums.proficiencies import ProficienciesNames
 from src.core.itens import Weapon
 from src.impl.actions.attacks.abstractclasses import (
     IAttack_melee_to_one_target_with_prof,

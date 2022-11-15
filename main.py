@@ -1,14 +1,15 @@
 # import src.impl.characters.goblin as goblin
 from src.impl.characters import goblin
-from src.impl.actions.attacks import attacks
+from src.impl.characters import gnoll
+from src.impl.characters import goblin_boss
 
 def printf(c):
     # print(c)
     pass
 
 def main():
-    goblin1 = goblin.create()
     goblin2 = goblin.create()
+    goblin1 = goblin_boss.create()
 
     ganhadores = []
     for _ in range(5000):

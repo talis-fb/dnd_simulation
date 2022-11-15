@@ -9,16 +9,16 @@ from src.impl.itens.weapons.ranged import ArcoCurto
 def create():
     return Character(
         CharacterSummary(
-            name="Goblin",
-            xp=50
+            name="Chefe Goblin",
+            xp=200
         ),
         Atbs(
-            strength=Atb(-1),
+            strength=Atb(0),
             dexterity=Atb(2),
             constitution=Atb(0),
             intelligence=Atb(0),
             wisdom=Atb(-1),
-            charisma=Atb(-1),
+            charisma=Atb(0),
             proficiency_bonus=2,
         ),
         Heath(

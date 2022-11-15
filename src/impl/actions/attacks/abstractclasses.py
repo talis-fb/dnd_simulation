@@ -1,5 +1,5 @@
 from re import error
-from core.enums.types_damage import TypesDamage
+from src.core.enums.types_damage import TypesDamage
 from src.core.actions import Action
 from src.core.attributes import AtbsNames as Atb_
 from src.core.character import Character

@@ -1,8 +1,10 @@
-from core.dices import Dices, d4, d6, d8, d10, d12
-from core.enums.types_damage import TypesDamage
-from src.impl.itens.weapons.abstractclasses import MartialMeleeWeapon, SimpleMeleeWeapon, SimpleRangedWeapon
+from src.core.dices import Dices, d4, d6, d8, d10, d12
+from src.core.enums.types_damage import TypesDamage
+from src.impl.itens.weapons.abstractclasses import MartialMeleeWeapon, MartialRangedWeapon, SimpleMeleeWeapon, SimpleRangedWeapon
 
-# Simple -----------------------------------
+# -------------------------------------------
+# Simple ------------------------------------
+# -------------------------------------------
 class AdagaWithStrength(SimpleMeleeWeapon):
     damage_roll = Dices(1, d4)
     damage_type = TypesDamage.PIERCING
@@ -31,13 +33,20 @@ class ClavaGrande(SimpleMeleeWeapon):
     damage_roll = Dices(1, d8)
     damage_type = TypesDamage.BLUDGEONING
 
+# -------------------------------------------
 # Martial -----------------------------------
-class Cimitarra(MartialMeleeWeapon):
+# -------------------------------------------
+class CimitarraWithStrength(MartialMeleeWeapon):
+    damage_roll = Dices(1, d6)
+    damage_type = TypesDamage.SLASHING
+class CimitarraWithDexterity(MartialRangedWeapon): # Usado Ranged já que é por destreza
     damage_roll = Dices(1, d6)
     damage_type = TypesDamage.SLASHING
 
-
-class EspadaCurta(MartialMeleeWeapon):
+class EspadaCurtaWithStrength(MartialMeleeWeapon):
+    damage_roll = Dices(1, d6)
+    damage_type = TypesDamage.PIERCING
+class EspadaCurtaWithDexterity(MartialRangedWeapon):
     damage_roll = Dices(1, d6)
     damage_type = TypesDamage.PIERCING
 

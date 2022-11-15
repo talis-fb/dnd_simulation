@@ -9,6 +9,7 @@ from abc import ABC, abstractmethod
 from random import choice
 from src.core.proficiencies import Proficiencies, ProficienciesNames
 from src.core.combat_stats import Heath
+from src.core.itens import Weapon
 
 @dataclass
 class CharacterSummary:
@@ -19,15 +20,26 @@ class CharacterSummary:
   xp:int = 0
 
 class Character(Object):
-  def __init__(self, summary: CharacterSummary, atbs: Atbs, heath: Heath, skills: Set[SkillsName] = set(), actions: List[Action] = []):
+  def __init__(
+      self, 
+      summary: CharacterSummary, 
+      atbs: Atbs, 
+      heath: Heath, 
+      skills: Set[SkillsName] = set(), 
+      actions: List[Action] = [],
+      itens: List[Weapon] = [],
+    ):
     self.summary = summary
     self.atbs = atbs
     self.heath = heath
     self.skills = Skills(skills, self.atbs)
-    self.itens = []
-    self.actions = actions
-    self.current_action: Action
+    self.itens = itens
     self.proficiencies = Proficiencies(set())
+    
+    self.all_absolute_actions = actions
+    self.avaible_actions: List[Action] = []
+    self.current_action: Action
+    self.validate_actions()
 
   ## Rolls ------------------------------------
   def roll(self, atb: AtbsNames, advantage = False, disadvantage = False):
@@ -57,14 +69,26 @@ class Character(Object):
 
   ## Manage ACTIONS ---------------------------
   def set_randon_action(self):
-    choiced = choice(self.actions)
+    choiced = choice(self.avaible_actions)
 
     # Vai escolhendo ate achar uma ação permitida
     # TODO: NADA perfomatico
     while not choiced.is_able:
-       choiced = choice(self.actions)
+       choiced = choice(self.avaible_actions)
 
-    self.current_action = choice(self.actions)
+    self.current_action = choiced
+    
+  def validate_actions(self):
+    itens_actions = []
+    for item in self.itens:
+      item.validate()
+      itens_actions += item.get_actions()
+    
+    self.avaible_actions = [
+      *self.all_absolute_actions,
+      *itens_actions
+    ]
+    
 
   def exec(self, received: List[Self]):
     if self.current_action:

@@ -30,8 +30,8 @@ class Character(Object):
     self.proficiencies = Proficiencies(set())
 
   ## Rolls ------------------------------------
-  def roll(self, atb: AtbsNames):
-      return self.atbs.roll(atb)
+  def roll(self, atb: AtbsNames, advantage = False, disadvantage = False):
+      return self.atbs.roll(atb, advantage=advantage, disadvantage=disadvantage)
 
   def roll_with_proficiency(self, atb: AtbsNames, prof: ProficienciesNames, advantage:bool = False, disadvantage:bool = False):
       roll_result = self.atbs.roll(atb, advantage=advantage, disadvantage=disadvantage)

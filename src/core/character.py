@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from typing import Generic, List,Set,TypeVar
 from typing_extensions import Self
-from src.core.objects import Object
 from src.core.actions import Action
 from src.core.skills import SkillsName, Skills
 from src.core.attributes import Atbs, AtbsNames
@@ -19,7 +18,7 @@ class CharacterSummary:
   level:int = 1
   xp:int = 0
 
-class Character(Object):
+class Character:
   def __init__(
       self, 
       summary: CharacterSummary, 

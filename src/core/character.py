@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from typing import Generic, List,Set,TypeVar
 from typing_extensions import Self
-from definitions.objects import Object
-from definitions.actions import Action
-from definitions.skills import SkillsName, Skills
-from definitions.attributes import Atbs, AtbsNames
+from src.core.objects import Object
+from src.core.actions import Action
+from src.core.skills import SkillsName, Skills
+from src.core.attributes import Atbs, AtbsNames
 from abc import ABC, abstractmethod 
 from random import choice
-from definitions.proficiencies import Proficiencies, ProficienciesNames
-from definitions.combat_stats import Heath
+from src.core.proficiencies import Proficiencies, ProficienciesNames
+from src.core.combat_stats import Heath
 
 @dataclass
 class CharacterSummary:

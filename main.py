@@ -1,4 +1,6 @@
-import impl_characters.goblin as goblin
+# import src.impl.characters.goblin as goblin
+from src.impl.characters import goblin
+from src.impl.actions.attacks import attacks
 
 def printf(c):
     # print(c)
@@ -9,7 +11,7 @@ def main():
     goblin2 = goblin.create()
 
     ganhadores = []
-    for _ in range(500000):
+    for _ in range(5000):
         goblin1 = goblin.create()
         goblin2 = goblin.create()
         while(goblin1.heath.is_alive() and goblin2.heath.is_alive()):
@@ -47,9 +49,6 @@ def main():
         printf(f" ## VENCEDOR: {win} ####")
         printf(f" #######################")
 
-    # printf(ganhadores)
-    ganhadores.sort()
-    # printf(ganhadores)
     print(ganhadores.count(1))
     print(ganhadores.count(2))
 

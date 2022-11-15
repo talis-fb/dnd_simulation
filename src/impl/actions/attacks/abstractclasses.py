@@ -1,8 +1,8 @@
 from re import error
-from definitions.actions import Action
-from definitions.attributes import AtbsNames as Atb_
-from definitions.character import Character
-from utils.dices import Dices
+from src.core.actions import Action
+from src.core.attributes import AtbsNames as Atb_
+from src.core.character import Character
+from src.core.dices import Dices, d4, d6, d8, d10, d12
 from typing import List
 
 class IAttack_melee_to_one_target_without_prof(Action):

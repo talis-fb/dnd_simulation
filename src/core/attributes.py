@@ -1,18 +1,10 @@
 from enum import Enum
 from dataclasses import dataclass, field
 from typing import List,Set
-from utils.dices import Dices
-from utils.rolls import roll_basic_test
-# from definitions.skills import Skills
-from definitions.proficiencies import Proficiencies
-
-class AtbsNames(Enum):
-  STRENGTH = 'strength'
-  DEXTERITY = 'dexterity'
-  INTELLIGENCE = 'intelligence'
-  CONSTITUTION = 'constitution'
-  WISDOM = 'wisdom'
-  CHARISMA = 'charisma'
+from src.core.dices import Dices
+from src.core.rolls import roll_basic_test
+from src.core.proficiencies import Proficiencies
+from src.core.enums.atbs import AtbsNames
 
 # Por padrão, vc pode iniciar Atb(5) com só o valor 
 # ou com Atb(5,X), onde X seria o bonus de proficiencia,

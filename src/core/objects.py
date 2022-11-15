@@ -1,5 +1,6 @@
 from dataclasses import dataclass,field
-from definitions.enums import TypesDamage,Conditions
+from src.core.enums.types_damage import TypesDamage
+from src.core.enums.conditions import Conditions
 from typing import Set
 
 @dataclass

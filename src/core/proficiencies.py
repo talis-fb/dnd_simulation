@@ -1,12 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Set
-
-class ProficienciesNames(Enum):
-    WEAPON_SIMPLE = 'weapon_simple'
-    WEAPON_MARTIAL = 'weapon_martial'
-    LIGHT_ARMOR = 'light_armor'
-    HEAVY_ARMOR = 'heavy_armor'
+from src.core.enums.proficiencies import ProficienciesNames
 
 @dataclass
 class Proficiencies:

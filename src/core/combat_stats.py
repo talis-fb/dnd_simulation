@@ -1,6 +1,7 @@
-from definitions.enums import TypesDamage,Conditions
+from src.core.enums.types_damage import TypesDamage
+from src.core.enums.conditions import Conditions
 from typing import List, Set
-from utils.dices import Dices
+from src.core.dices import Dices
 import math
 
 class Heath:

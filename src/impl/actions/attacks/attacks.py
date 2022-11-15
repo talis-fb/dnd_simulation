@@ -1,5 +1,5 @@
-from actions.interfaces.attacks import IAttack_melee_to_one_target_with_prof, IAttack_melee_to_one_target_without_prof
-from utils.dices import Dices, d4, d6, d8, d10, d12
+from src.impl.actions.attacks.abstractclasses import IAttack_melee_to_one_target_with_prof, IAttack_melee_to_one_target_without_prof
+from src.core.dices import Dices, d4, d6, d8, d10, d12
 
 class Attack_with_dagger(IAttack_melee_to_one_target_without_prof):
     damage_roll = Dices(1, d4)

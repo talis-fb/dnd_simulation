@@ -1,9 +1,9 @@
-from definitions.character import Character, CharacterSummary
-from definitions.attributes import Atbs, Atb
-from definitions.skills import SkillsName
-from definitions.combat_stats import Heath
-from actions.impl.attacks.attacks import Attack_with_handaxe, Attack_with_bite
-from utils.dices import Dices, d6
+from src.core.character import Character, CharacterSummary
+from src.core.attributes import Atbs, Atb
+from src.core.skills import SkillsName
+from src.core.combat_stats import Heath
+from src.impl.actions.attacks.attacks import Attack_with_bite, Attack_with_handaxe
+from src.core.dices import Dices, d6
 
 def create():
     return Character(

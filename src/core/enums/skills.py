@@ -1,0 +1,27 @@
+from enum import Enum
+from src.core.enums.atbs import AtbsNames as Atbs
+
+class SkillsName(Enum):
+  # Strength
+  ATHLETICS = Atbs.STRENGTH
+  # Dexterity
+  ACROBATICS =  Atbs.DEXTERITY
+  SLEIGHT_OF_HAND =  Atbs.DEXTERITY
+  STEALTH =  Atbs.DEXTERITY
+  # Intelligence
+  ARCANA = Atbs.INTELLIGENCE
+  HISTORY =  Atbs.INTELLIGENCE
+  INVESTIGATION =  Atbs.INTELLIGENCE
+  NATURE =  Atbs.INTELLIGENCE
+  RELIGION =  Atbs.INTELLIGENCE
+  # Wisdom
+  ANIMAL_HANDLING =  Atbs.WISDOM
+  INSIGHT =  Atbs.WISDOM
+  MEDICINE =  Atbs.WISDOM
+  PERCEPTION =  Atbs.WISDOM
+  SURVIVAL =  Atbs.WISDOM
+  # Charisma
+  DECEPTION =  Atbs.CHARISMA
+  INTIMIDATION =  Atbs.CHARISMA
+  PERFORMANCE =  Atbs.CHARISMA
+  PERSUASION =  Atbs.CHARISMA

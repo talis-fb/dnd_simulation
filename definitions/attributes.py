@@ -21,10 +21,28 @@ class AtbsNames(Enum):
 @dataclass
 class Atb:
     value:int
-    def roll(self) -> int:
+    def roll(self, advantage:bool = False, disadvantage:bool = False) -> int:
+        if advantage and disadvantage:
+            raise Exception('Advantage + Disadvantage together in a roll')
+        if advantage:
+            return self.roll_with_advantage()
+        if disadvantage:
+            return self.roll_with_disadvantage()
+
         return roll_basic_test([ self.value ])
+
     def roll_with_bonus(self, bonus:int) -> int:
         return roll_basic_test([ self.value, bonus ])
+
+    # Advantage / Disadvantage
+    def roll_with_advantage(self) -> int:
+        both_rolls = [ roll_basic_test([ self.value ]), roll_basic_test([ self.value ]) ]
+        return max(both_rolls)
+    def roll_with_disadvantage(self) -> int:
+        both_rolls = [ roll_basic_test([ self.value ]), roll_basic_test([ self.value ]) ]
+        return min(both_rolls)
+
+    # Clone the instance of class
     def clone_with_bonus(self, bonus: int):
         return Atb(self.value + bonus)
 
@@ -44,24 +62,8 @@ class Atbs:
   def get_atb(self, atb:AtbsNames) -> Atb:
       return self.__getattribute__(str(atb.value))
 
-  def roll(self, atb:AtbsNames) -> int:
-      return self.get_atb(atb).roll()
+  def roll(self, atb:AtbsNames, advantage=False, disadvantage=False) -> int:
+      return self.get_atb(atb).roll(advantage=advantage, disadvantage=disadvantage)
 
   def is_in_saving_throw(self, atb:AtbsNames) -> bool:
       return atb in self.saving_throws
-
-  # def clone_with_bonus(self, bonus: int):
-  #     return Atbs(
-  #         strength=self.strength.clone_with_bonus(bonus),
-  #         dexterity=self.dexterity.clone_with_bonus(bonus),
-  #         intelligence=self.intelligence.clone_with_bonus(bonus),
-  #         constitution=self.constitution.clone_with_bonus(bonus),
-  #         wisdom=self.wisdom.clone_with_bonus(bonus),
-  #         charisma=self.charisma.clone_with_bonus(bonus)
-  #     )
-
-  # COMBAT
-  ac:int = 15
-  hp:int = 10
-  hp_temp: List[int] = field(default_factory=list)
-  hp_dice: Dices | None = None

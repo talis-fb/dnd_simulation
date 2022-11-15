@@ -1,6 +1,7 @@
 from definitions.character import Character, CharacterSummary
 from definitions.attributes import Atbs, Atb
 from definitions.skills import SkillsName
+from definitions.combat_stats import Heath
 from actions.impl.attacks.attacks import Attack_with_handaxe, Attack_with_bite
 from utils.dices import Dices, d6
 
@@ -18,6 +19,8 @@ def create():
             wisdom=Atb(-1),
             charisma=Atb(-1),
             proficiency_bonus=2,
+        ),
+        Heath(
             ac=15,
             hp=17,
             hp_dice=Dices(2,d6)

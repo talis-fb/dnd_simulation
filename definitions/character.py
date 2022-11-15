@@ -8,6 +8,7 @@ from definitions.attributes import Atbs, AtbsNames
 from abc import ABC, abstractmethod 
 from random import choice
 from definitions.proficiencies import Proficiencies, ProficienciesNames
+from definitions.combat_stats import Heath
 
 @dataclass
 class CharacterSummary:
@@ -18,9 +19,10 @@ class CharacterSummary:
   xp:int = 0
 
 class Character(Object):
-  def __init__(self, summary: CharacterSummary, atbs: Atbs, skills: Set[SkillsName] = set(), actions: List[Action] = []):
+  def __init__(self, summary: CharacterSummary, atbs: Atbs, heath: Heath, skills: Set[SkillsName] = set(), actions: List[Action] = []):
     self.summary = summary
     self.atbs = atbs
+    self.heath = heath
     self.skills = Skills(skills, self.atbs)
     self.itens = []
     self.actions = actions
@@ -31,26 +33,26 @@ class Character(Object):
   def roll(self, atb: AtbsNames):
       return self.atbs.roll(atb)
 
-  def roll_with_proficiency(self, atb: AtbsNames, prof: ProficienciesNames):
-      roll_result = self.atbs.roll(atb)
+  def roll_with_proficiency(self, atb: AtbsNames, prof: ProficienciesNames, advantage:bool = False, disadvantage:bool = False):
+      roll_result = self.atbs.roll(atb, advantage=advantage, disadvantage=disadvantage)
       if self.proficiencies.contains(prof):
           return roll_result + self.atbs.proficiency_bonus
       else:
           return roll_result
 
-  def roll_with_proficiency_bonus(self, atb: AtbsNames):
-      roll_result = self.atbs.roll(atb)
+  def roll_with_proficiency_bonus(self, atb: AtbsNames, advantage = False, disadvantage = False):
+      roll_result = self.atbs.roll(atb, advantage=advantage, disadvantage=disadvantage)
       return roll_result + self.atbs.proficiency_bonus
 
-  def roll_saving_throw(self, atb:AtbsNames):
-      roll_result = self.atbs.roll(atb)
+  def roll_saving_throw(self, atb:AtbsNames, advantage = False, disadvantage = False):
+      roll_result = self.atbs.roll(atb, advantage=advantage, disadvantage=disadvantage)
       if self.atbs.is_in_saving_throw(atb):
           return roll_result + self.atbs.proficiency_bonus
       else:
           return roll_result
 
-  def roll_with_bonus(self, atb:AtbsNames, bonus:int):
-      roll_result = self.atbs.roll(atb)
+  def roll_with_bonus(self, atb:AtbsNames, bonus:int, advantage = False, disadvantage = False):
+      roll_result = self.atbs.roll(atb, advantage=advantage, disadvantage=disadvantage)
       return roll_result + bonus
 
   ## Manage ACTIONS ---------------------------

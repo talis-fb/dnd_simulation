@@ -22,7 +22,7 @@ class IAttack_melee_to_one_target_without_prof(Action):
             if self.sum_with_strength:
                 damage += attacker.atbs.strength.value
             # defender[0].atbs.hp -= damage
-            defender[0].heath.take_down_hp(damage)
+            defender[0].heath.take_damage(damage)
             self.result = ((roll,target),damage)
             self.success = True
         else:
@@ -46,7 +46,7 @@ class IAttack_melee_to_one_target_with_prof(Action):
             damage = self.damage_roll.roll() + self.bonus_damage
             if self.sum_with_strength:
                 damage += attacker.atbs.strength.value
-            defender[0].heath.take_down_hp(damage)
+            defender[0].heath.take_damage(damage)
             self.result = ((roll,target),damage)
             self.success = True
         else:

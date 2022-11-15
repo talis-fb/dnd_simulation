@@ -27,6 +27,8 @@ class Heath:
 
   def is_dead(self) -> bool:
     return self.hp <= 0
+  def is_alive(self) -> bool:
+    return self.hp > 0
 
   def is_ac_less_than(self, amount:int) -> bool:
       return amount >= self.ac
@@ -53,7 +55,7 @@ class Heath:
       return 0
 
 
-  def take_down_hp(self, amount:int, damage_type:TypesDamage | None = None):
+  def take_damage(self, amount:int, damage_type:TypesDamage | None = None):
       if damage_type:
           if damage_type in self.invisible:
               return # DO NOTHING

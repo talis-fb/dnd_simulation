@@ -3,6 +3,8 @@ from typing import List, TypeVar, Generic, Any
 
 K = TypeVar('K')
 class Action(ABC):
+  is_able:bool = True
+
   result:Any = None
   success:bool = False
 

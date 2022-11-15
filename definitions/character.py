@@ -57,6 +57,13 @@ class Character(Object):
 
   ## Manage ACTIONS ---------------------------
   def set_randon_action(self):
+    choiced = choice(self.actions)
+
+    # Vai escolhendo ate achar uma ação permitida
+    # TODO: NADA perfomatico
+    while not choiced.is_able:
+       choiced = choice(self.actions)
+
     self.current_action = choice(self.actions)
 
   def exec(self, received: List[Self]):

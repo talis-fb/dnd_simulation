@@ -8,14 +8,19 @@ class Multiple_attacks(Action):
         self.attacks = attacks
 
     def run(self, doing: Character, receiving: List[Character]):
+        successes = []
+        results = []
+
         first = self.attacks[0]
         first.run(doing, receiving)
 
-        successes = []
-        results = []
+        results.append(first.result)
+        successes.append(first.success)
+
         for move in self.attacks[1::]:
             move.with_disadvantage = True
             move.run(doing, receiving)
+
             results.append(move.result)
             successes.append(move.success)
 

@@ -7,6 +7,11 @@ from src.impl.itens.weapons.melee import CimitarraWithDexterity, Azagaia
 from src.impl.actions.multiple_attacks import Multiple_attacks
 
 def create():
+
+    # MOVES SPECIFICATIONS
+    Cimitarra = CimitarraWithDexterity()
+    Cimitarra.with_profiency_bonus = True
+
     return Character(
         CharacterSummary(
             name="Chefe Goblin",
@@ -32,8 +37,8 @@ def create():
         # Actions
         [
             Multiple_attacks([
-                CimitarraWithDexterity(),
-                CimitarraWithDexterity(),
+                Cimitarra,
+                Cimitarra,
             ]),
             Azagaia()
         ],

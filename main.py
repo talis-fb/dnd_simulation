@@ -1,4 +1,3 @@
-# import src.impl.characters.goblin as goblin
 from src.impl.characters import goblin
 from src.impl.characters import gnoll
 from src.impl.characters import goblin_boss
@@ -8,13 +7,13 @@ def printf(c):
     pass
 
 def main():
-    goblin2 = goblin.create()
     goblin1 = goblin_boss.create()
+    goblin2 = gnoll.create()
 
     ganhadores = []
-    for _ in range(5000):
-        goblin1 = goblin.create()
-        goblin2 = goblin.create()
+    for _ in range(100000):
+        goblin1 = goblin_boss.create()
+        goblin2 = gnoll.create()
         while(goblin1.heath.is_alive() and goblin2.heath.is_alive()):
             printf(f" -------- PRIMEIRO -------")
             goblin1.set_randon_action()
@@ -43,15 +42,18 @@ def main():
             printf(f"\tHP 1: {goblin1.heath.hp}")
             printf(f"\tHP 2: {goblin2.heath.hp} \n")
 
-        win = 1 if not goblin1.heath.is_alive() else 2
+        win = 1 if goblin1.heath.is_alive() else 2
         ganhadores.append(win)
 
         printf(f" #######################")
         printf(f" ## VENCEDOR: {win} ####")
         printf(f" #######################")
 
-    print(ganhadores.count(1))
-    print(ganhadores.count(2))
+    win_1 = ganhadores.count(1) 
+    win_2 = ganhadores.count(2) 
+    print(win_1)
+    print(win_2)
+    print(f'{win_1 / (win_1+win_2)} / {win_2 / (win_1+win_2)}')
 
 if __name__ == "__main__":
     main()

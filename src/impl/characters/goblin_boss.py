@@ -3,8 +3,7 @@ from src.core.attributes import Atbs, Atb
 from src.core.skills import SkillsName
 from src.core.combat_stats import Heath
 from src.core.dices import Dices, d6
-from src.impl.itens.weapons.melee import CimitarraWithDexterity
-from src.impl.itens.weapons.ranged import ArcoCurto
+from src.impl.itens.weapons.melee import CimitarraWithDexterity, Azagaia
 
 def create():
     return Character(
@@ -23,8 +22,8 @@ def create():
         ),
         Heath(
             ac=15,
-            hp=7,
-            hp_dice=Dices(2,d6)
+            hp=22,
+            hp_dice=Dices(6,d6)
         ),
         set([
             SkillsName.STEALTH
@@ -32,7 +31,7 @@ def create():
         # Actions
         [
             CimitarraWithDexterity(),
-            ArcoCurto()
+            Azagaia()
         ],
 
         #Itens

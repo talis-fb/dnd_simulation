@@ -1,6 +1,6 @@
 from src.core.dices import Dices, d4, d6, d8, d10, d12
 from src.core.enums.types_damage import TypesDamage
-from src.impl.itens.weapons.abstractclasses import MartialMeleeWeapon, MartialRangedWeapon, SimpleMeleeWeapon, SimpleRangedWeapon
+from src.impl.itens.weapons.abstracts import MartialMeleeWeapon, MartialRangedWeapon, SimpleMeleeWeapon, SimpleRangedWeapon
 
 # -------------------------------------------
 # Simple ------------------------------------

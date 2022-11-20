@@ -78,7 +78,7 @@ class Character:
     self.current_action = choiced
     
   def validate_actions(self):
-    itens_actions = []
+    itens_actions: List[Action] = []
     for item in self.itens:
       item.validate()
       itens_actions += item.get_actions()

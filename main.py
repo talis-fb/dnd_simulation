@@ -22,10 +22,14 @@ def main():
             print(f'[{game.attacker.summary.name}]')
             print(f'{game.last_roll} => {game.results}   ||   {game.attacker.heath.hp}, {game.defender.heath.hp} \n')
 
-        print('--------------------------------------------------------------------------------------------------')
 
-        ganhadores.append(game.get_game_results()["winner"])
+        win = game.get_game_results()["winner"]
+        print("\nWINNER")
+        print(win)
+        print(game.get_game_results())
+        ganhadores.append(win)
         game.log_game_results()
+        print('--------------------------------------------------------------------------------------------------')
 
     win_1 = ganhadores.count('Chefe Goblin')
     win_2 = ganhadores.count('Gnoll') 

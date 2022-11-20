@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Any, Callable, Literal
 from dataclasses import dataclass
 from src.core.character import Character
 import logging
@@ -12,8 +12,12 @@ class Game:
     ) -> None:
         self.factory_character1 = factory_character1
         self.factory_character2 = factory_character2
-        self.attacker = factory_character1()
-        self.defender = factory_character2()
+        self.characters = (
+            factory_character1(),
+            factory_character2(),
+        )
+        self.current_character:int = 0
+
         logging.basicConfig(filename=f'{log_file}.txt')
 
         self.turn = 0
@@ -22,9 +26,21 @@ class Game:
         self.results:Any = None
         self.last_roll:bool = False
 
+    @property
+    def attacker(self):
+        return self.characters[self.current_character]
+
+    @property
+    def defender(self):
+        i = int(not self.current_character)
+        return self.characters[i]
+
     def restart_game(self):
-        self.attacker = self.factory_character1()
-        self.defender = self.factory_character2()
+        self.characters = (
+            self.factory_character1(),
+            self.factory_character2()
+        )
+        self.current_character = 0
 
     @property
     def is_finished(self) -> bool:
@@ -37,20 +53,23 @@ class Game:
             self.winner = self.attacker
         else:
             self.winner = self.defender
-        self.diff_hp =self.attacker.heath.hp - self.defender.heath.hp
+        self.diff_hp = max([ self.attacker.heath.hp, 0 ]) - max([self.defender.heath.hp, 0])
 
         return {
             "winner": self.winner.summary.name,
-            "dif_hp": self.diff_hp
+            "diff_hp": self.diff_hp
         }
 
     def next_turn(self):
-        self.attacker, self.defender = self.defender, self.attacker
+        self.current_character += 1
+
+        # Se estourar
+        if self.current_character >= len(self.characters):
+            self.current_character = 0
+
         self.turn += 1
 
     def validate_turn(self):
-        # self.attacker.validate_actions()
-        # self.defender.validate_actions()
         self.attacker.set_randon_action()
 
     def run_turn(self):

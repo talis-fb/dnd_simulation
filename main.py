@@ -4,8 +4,12 @@ from src.impl.characters import goblin_boss
 from src.game.game import Game
 import time
 
+def print_roll(character, hp, result):
+    print(f'[{character} / {hp}] => {result}')
+    pass
+
 def printf(c):
-    # print(c)
+    print(c)
     pass
 
 def main():
@@ -14,10 +18,9 @@ def main():
     game = Game(
         goblin_boss.create,
         gnoll.create,
-        # goblin_boss.create,
     )
 
-    times = 10000
+    times = 100
     for _ in range(times):
         game.restart_game()
         while(not game.is_finished):
@@ -26,21 +29,21 @@ def main():
             game.run_turn()
             game.log_turn_results()
             # time.sleep(0.20)
-            printf(game.results)
-            printf(f'[{game.attacker.summary.name}]')
-            printf(f'{game.last_roll} => {game.results}   ||   {game.characters[0].heath.hp}, {game.characters[1].heath.hp} \n')
+            # print_roll(game.attacker.summary.name, game.attacker.heath.hp, game.results)
+            # printf(f'[{game.attacker.summary.name}]')
+            # printf(f'{game.last_roll} => {game.results}   ||   {game.characters[0].heath.hp}, {game.characters[1].heath.hp} \n')
 
 
         win = game.get_game_results()["winner"]
-        printf("\nWINNER")
-        printf(win)
-        printf(game.get_game_results())
+        # printf("\nWINNER")
+        # printf(win)
+        # printf(game.get_game_results())
         ganhadores.append(win)
         game.log_game_results()
-        printf('--------------------------------------------------------------------------------------------------')
+        # printf('--------------------------------------------------------------------------------------------------')
 
     win_goblin = ganhadores.count('Chefe Goblin')
-    win_gnoll = ganhadores.count('Gnoll') 
+    win_gnoll = ganhadores.count('Gnoll       ') 
     print(f'GOBLIN: {win_goblin}   {win_goblin / (win_goblin+win_gnoll)}')
     print(f'GNOLL:  {win_gnoll}   {win_gnoll / (win_goblin+win_gnoll)}')
     print(len(ganhadores))

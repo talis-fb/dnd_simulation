@@ -9,7 +9,7 @@ from src.impl.actions.attacks.bites import Attack_Bite
 def create():
     return Character(
         CharacterSummary(
-            name="Gnoll",
+            name="Gnoll       ",
             xp=100
         ),
         Atbs(

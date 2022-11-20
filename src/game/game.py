@@ -35,19 +35,21 @@ class Game:
         i = int(not self.current_character)
         return self.characters[i]
 
-    def restart_game(self):
-        self.characters = (
-            self.factory_character1(),
-            self.factory_character2()
-        )
-        self.current_character = 0
-
     @property
     def is_finished(self) -> bool:
         return (
             self.attacker.heath.is_dead() or
             self.defender.heath.is_dead()
         )
+
+    def restart_game(self):
+        self.characters = (
+            self.factory_character1(),
+            self.factory_character2()
+        )
+        self.current_character = 0
+        self.turn = 0
+
 
     def get_game_results(self):
         if self.attacker.heath.hp > self.defender.heath.hp:
@@ -62,13 +64,15 @@ class Game:
         }
 
     def next_turn(self):
+        self.turn += 1
+        if self.turn == 1:
+            return
+
         self.current_character += 1
 
         # Se estourar
         if self.current_character >= len(self.characters):
             self.current_character = 0
-
-        self.turn += 1
 
     def validate_turn(self):
         self.attacker.set_randon_action()

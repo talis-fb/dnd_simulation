@@ -4,6 +4,7 @@ from src.core.skills import SkillsName
 from src.core.combat_stats import Heath
 from src.core.dices import Dices, d6
 from src.impl.itens.weapons.melee import CimitarraWithDexterity, Azagaia
+from src.impl.actions.multiple_attacks import Multiple_attacks
 
 def create():
     return Character(
@@ -21,8 +22,8 @@ def create():
             proficiency_bonus=2,
         ),
         Heath(
-            ac=15,
-            hp=22,
+            ac=17,
+            hp=21,
             hp_dice=Dices(6,d6)
         ),
         set([
@@ -30,7 +31,10 @@ def create():
         ]),
         # Actions
         [
-            CimitarraWithDexterity(),
+            Multiple_attacks([
+                CimitarraWithDexterity(),
+                CimitarraWithDexterity(),
+            ]),
             Azagaia()
         ],
 

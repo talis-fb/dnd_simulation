@@ -40,6 +40,18 @@ def create():
                 Cimitarra,
                 Cimitarra,
             ]),
+            Multiple_attacks([
+                Cimitarra,
+                Cimitarra,
+            ]),
+            Multiple_attacks([
+                Cimitarra,
+                Cimitarra,
+            ]),
+            Multiple_attacks([
+                Cimitarra,
+                Cimitarra,
+            ]),
             Azagaia()
         ],
 

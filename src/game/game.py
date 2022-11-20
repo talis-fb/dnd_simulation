@@ -48,6 +48,7 @@ class Game:
             self.attacker.heath.is_dead() or
             self.defender.heath.is_dead()
         )
+
     def get_game_results(self):
         if self.attacker.heath.hp > self.defender.heath.hp:
             self.winner = self.attacker

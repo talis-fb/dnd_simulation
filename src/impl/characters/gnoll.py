@@ -6,12 +6,15 @@ from src.impl.itens.weapons.melee import Lanca
 from src.impl.itens.weapons.ranged import ArcoLongo
 from src.impl.actions.attacks.bites import Attack_Bite
 
+def summary():
+    return CharacterSummary(
+        name="Gnoll",
+        xp=100
+    )
+
 def create():
     return Character(
-        CharacterSummary(
-            name="Gnoll       ",
-            xp=100
-        ),
+        summary(),
         Atbs(
             strength=Atb(2),
             dexterity=Atb(1),
@@ -27,7 +30,6 @@ def create():
             hp_dice=Dices(5,d8)
         ),
         set([]),
-        # Actions
         [
             Lanca(),
             ArcoLongo(),

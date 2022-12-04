@@ -3,6 +3,16 @@ from dataclasses import dataclass
 from src.core.character import Character
 import logging
 
+@dataclass 
+class CharacterTestable:
+    name:str
+    factory:Callable[..., Character]
+
+@dataclass
+class GameResult:
+    winner_name: str
+    diff_hp: int
+
 class Game:
     def __init__(
         self,
@@ -58,10 +68,10 @@ class Game:
             self.winner = self.defender
         self.diff_hp = max([ self.attacker.heath.hp, 0 ]) - max([self.defender.heath.hp, 0])
 
-        return {
-            "winner": self.winner.summary.name,
-            "diff_hp": self.diff_hp
-        }
+        return GameResult(
+            winner_name=self.winner.summary.name,
+            diff_hp=self.diff_hp,
+        )
 
     def next_turn(self):
         self.turn += 1

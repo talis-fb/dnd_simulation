@@ -6,6 +6,12 @@ from src.core.dices import Dices, d6
 from src.impl.itens.weapons.melee import CimitarraWithDexterity, Azagaia
 from src.impl.actions.multiple_attacks import Multiple_attacks
 
+def summary():
+    return CharacterSummary(
+        name="Chefe Goblin",
+        xp=200
+    )
+
 def create():
 
     # MOVES SPECIFICATIONS
@@ -13,10 +19,7 @@ def create():
     Cimitarra.with_profiency_bonus = True
 
     return Character(
-        CharacterSummary(
-            name="Chefe Goblin",
-            xp=200
-        ),
+        summary(),
         Atbs(
             strength=Atb(0),
             dexterity=Atb(2),

@@ -23,8 +23,8 @@ def main():
 
     resultados: List[GameResult] = []
     game = Game(
+        gnoll.factory,
         goblin_boss.factory,
-        gnoll.factory
     )
 
     # ---------------
@@ -37,7 +37,6 @@ def main():
             game.next_turn()
             game.validate_turn()
             game.run_turn()
-            game.log_turn_results()
 
         result = game.get_game_results()
         resultados.append(result)

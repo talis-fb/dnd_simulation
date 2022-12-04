@@ -4,25 +4,24 @@ from src.core.character import Character
 from src.impl.actions.attacks.abstracts import Attack_one_target
 
 class Multiple_attacks(Action):
-    def __init__(self, attacks: List[Attack_one_target]) -> None:
+    def __init__(self, attacks: List[Attack_one_target], attacks_with_disadvantage: List[Attack_one_target] = []) -> None:
         self.attacks = attacks
+        self.attacks_with_disadvantage = attacks_with_disadvantage
 
     def run(self, doing: Character, receiving: List[Character]):
         successes = []
         results = []
 
-        first = self.attacks[0]
-        first.run(doing, receiving)
+        for attack in self.attacks:
+            attack.run(doing, receiving)
+            results.append(attack.result)
+            successes.append(attack.success)
 
-        results.append(first.result)
-        successes.append(first.success)
-
-        for move in self.attacks[1::]:
-            move.with_disadvantage = True
-            move.run(doing, receiving)
-
-            results.append(move.result)
-            successes.append(move.success)
+        for attack in self.attacks_with_disadvantage:
+            attack.with_disadvantage = True
+            attack.run(doing, receiving)
+            results.append(attack.result)
+            successes.append(attack.success)
 
         self.result = results
         self.success = all(successes)

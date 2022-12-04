@@ -6,20 +6,23 @@ from src.core.dices import Dices, d6
 from src.impl.itens.weapons.melee import CimitarraWithDexterity, Azagaia
 from src.impl.actions.multiple_attacks import Multiple_attacks
 
-def summary():
-    return CharacterSummary(
-        name="Chefe Goblin",
-        xp=200
-    )
-
 def create():
-
     # MOVES SPECIFICATIONS
     Cimitarra = CimitarraWithDexterity()
     Cimitarra.with_profiency_bonus = True
 
+    actions = [
+        Multiple_attacks([ Cimitarra ], attacks_with_disadvantage=[ Cimitarra ]),
+        Multiple_attacks([ Cimitarra ], attacks_with_disadvantage=[ Cimitarra ]),
+        Multiple_attacks([ Cimitarra ], attacks_with_disadvantage=[ Cimitarra ]),
+        Azagaia(),
+    ]
+
     return Character(
-        summary(),
+        CharacterSummary(
+            name="Chefe Goblin",
+            xp=200
+        ),
         Atbs(
             strength=Atb(0),
             dexterity=Atb(2),
@@ -37,29 +40,5 @@ def create():
         set([
             SkillsName.STEALTH
         ]),
-        # Actions
-        [
-            Multiple_attacks([
-                Cimitarra,
-                Cimitarra,
-            ]),
-            Multiple_attacks([
-                Cimitarra,
-                Cimitarra,
-            ]),
-            Multiple_attacks([
-                Cimitarra,
-                Cimitarra,
-            ]),
-            Multiple_attacks([
-                Cimitarra,
-                Cimitarra,
-            ]),
-            Azagaia()
-        ],
-
-        #Itens
-        # [ 
-        #     CimitarraWithDexterity(),
-        # ]
+        actions,
     )

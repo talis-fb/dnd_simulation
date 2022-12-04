@@ -49,66 +49,32 @@ def main():
         'diff_hp': [ n.diff_hp for n in resultados ],
     })
 
-    print('MAIN----')
-    print(df)
-    print('END M---')
+    def serie_character(df:pd.DataFrame, character:CharacterTestable):
+        df_character = df[df['winners'] == character.name]
+        series_frequency = df_character[[ 'diff_hp' ]].value_counts()
+        return series_frequency.sort_index()
 
-    # aa: pd.DataFrame = df['winners']
-    # aa.value_counts().plot()
+    result_final_goblin = serie_character(df, goblin_boss)
+    result_final_gnoll = serie_character(df, gnoll)
 
-    # df.filter(iter)
-    print('------------------------')
-    name_goblins = goblin_boss.name
-    df_goblins = df[df['winners'] == name_goblins]
-    _dd = df_goblins[[ 'diff_hp' ]].value_counts()
-    dd = pd.Series(_dd).sort_index()
-    print(dd)
+    # Create Plot
+    result_final_goblin.plot(kind='line', color='green')
+    result_final_gnoll.plot(kind='line')
 
-    print('---------')
-
-    name_gnoll = gnoll.name
-    df_gnolls = df[df['winners'] == name_gnoll]
-    _dd2 = df_gnolls[[ 'diff_hp' ]].value_counts()
-    dd2 = pd.Series(_dd2).sort_index()
-    print(dd2)
-    print(dd2.tolist())
-
-    print('------------------------')
-
-    dd.plot(kind='line', sort_columns=True, color='green')
-    dd2.plot(kind='line', sort_columns=True)
-
-    # dd.plot(label="Goblin", color="orange")
-    # dd2.plot(label="Gnoll")
-
-    # plt.plot(dd, label="Goblin", color="orange")
-    # plt.plot(dd2, label="Gnoll", color='blue')
-
-    #add legend
-    plt.legend(['Goblins', 'Gnoll'])
-
-    #add axes labels and a title
-    plt.ylabel('Sales', fontsize=14)
-    plt.xlabel('Time', fontsize=14)
-    plt.title('Sales by Group', fontsize=16)
-
-    plt.title('Goblins VS Gnolls')
-
+    # Grid and labels
     max_hp_character = max( goblin_boss.factory().heath.hp_max, gnoll.factory().heath.hp_max )
     range_hp_axis = list(range(max_hp_character))
     plt.xticks(range_hp_axis, range_hp_axis)
-    # plt.yticks([5,10,15,20,25,30,35,40,45,50,55])
     plt.grid()
 
+    # ADD Legend e labels
+    plt.legend(['Goblins', 'Gnoll'])
+    plt.ylabel('Frequência vitória', fontsize=12)
+    plt.xlabel('HP do vencedor ao fim', fontsize=12)
+    plt.title('Goblins VS Gnolls', fontsize=16)
+
     plt.show()
-    
 
-
-    # win_goblin = ganhadores.count(goblin_boss.summary().name)
-    # win_gnoll = ganhadores.count(gnoll.summary().name) 
-    # print(f'GOBLIN: {win_goblin}   {win_goblin / (win_goblin+win_gnoll)}')
-    # print(f'GNOLL:  {win_gnoll}   {win_gnoll / (win_goblin+win_gnoll)}')
-    # print(len(ganhadores))
 
 if __name__ == "__main__":
     main()

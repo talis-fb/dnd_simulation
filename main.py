@@ -1,21 +1,16 @@
 from typing import List
 from src.impl.characters import gnoll as gnoll_module
+from src.impl.characters import goblin as goblin_module
 from src.impl.characters import goblin_boss as goblin_boss_module
 from src.game.game import Game, GameResult, CharacterTestable
 import pandas as pd
-from matplotlib import pyplot as plt
-import time
-
-def print_roll(character, hp, result):
-    print(f'[{character} / {hp}] => {result}')
-    pass
-
-def printf(c):
-    print(c)
-    pass
+from src.plots.frequency_win import FrequencyPlot
 
 def main():
 
+    # ---------------
+    # Definitions
+    # ---------------
     goblin_boss = CharacterTestable(
         name=goblin_boss_module.create().summary.name,
         factory=goblin_boss_module.create
@@ -32,7 +27,10 @@ def main():
         gnoll.factory
     )
 
-    times = 1000
+    # ---------------
+    # Simulation
+    # ---------------
+    times = 50000
     for _ in range(times):
         game.restart_game()
         while(not game.is_finished):
@@ -44,36 +42,17 @@ def main():
         result = game.get_game_results()
         resultados.append(result)
 
+    # ---------------
+    # Plot
+    # ---------------
     df = pd.DataFrame({
         'winners': [ n.winner_name for n in resultados ],
         'diff_hp': [ n.diff_hp for n in resultados ],
     })
 
-    def serie_character(df:pd.DataFrame, character:CharacterTestable):
-        df_character = df[df['winners'] == character.name]
-        series_frequency = df_character[[ 'diff_hp' ]].value_counts()
-        return series_frequency.sort_index()
-
-    result_final_goblin = serie_character(df, goblin_boss)
-    result_final_gnoll = serie_character(df, gnoll)
-
-    # Create Plot
-    result_final_goblin.plot(kind='line', color='green')
-    result_final_gnoll.plot(kind='line')
-
-    # Grid and labels
-    max_hp_character = max( goblin_boss.factory().heath.hp_max, gnoll.factory().heath.hp_max )
-    range_hp_axis = list(range(max_hp_character))
-    plt.xticks(range_hp_axis, range_hp_axis)
-    plt.grid()
-
-    # ADD Legend e labels
-    plt.legend(['Goblins', 'Gnoll'])
-    plt.ylabel('Frequência vitória', fontsize=12)
-    plt.xlabel('HP do vencedor ao fim', fontsize=12)
-    plt.title('Goblins VS Gnolls', fontsize=16)
-
-    plt.show()
+    plot = FrequencyPlot(df,goblin_boss, gnoll)
+    plot.build()
+    plot.show()
 
 
 if __name__ == "__main__":

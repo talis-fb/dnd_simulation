@@ -23,16 +23,12 @@ class FrequencyPlot(Plot):
 
         self.df = pd.concat([ data_series_ch_1, data_series_ch_2 ], keys=[ self.character_1.name, self.character_2.name ], axis=1 ).sort_values(by='diff_hp')#.fillna(0)
         
-        print('--1')
-        print(data_series_ch_1)
-        print('--2')
-        print(data_series_ch_2)
-        print('--FINAL')
+        print('--DADOS para imprimir')
         print(self.df)
 
         # WARNING: Metodo interpolate() cria valores lineares entre pontos sem dados (NaN). Nao é possivel destacar
         #  esses pontos dos demais de maneira facil. Está sendo usado para nao gerar um grafico estranho
-        # ax = plt.gca()
+        # self.df.interpolate().plot(kind='line', marker='o', color=[self.color_ch1, self.color_ch2])
         self.df.plot(kind='line', marker='o', color=[self.color_ch1, self.color_ch2])
 
 

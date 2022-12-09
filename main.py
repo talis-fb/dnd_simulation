@@ -31,34 +31,16 @@ def main():
     # ---------------
     # Simulation
     # ---------------
-    times = 5000
+    times = 10000
     for _ in range(times):
-        # print(f'>>>> {_}')
-        # print(f'PRE RESTART')
-        # print(f'{game.characters[0].heath.hp} / {game.characters[0].heath.hp_max}')
-        # print(f'{game.characters[1].heath.hp} / {game.characters[1].heath.hp_max}')
         game.restart_game()
-        # print(f'RESTART')
-        # print(f'{game.characters[0].heath.hp} / {game.characters[0].heath.hp_max}')
-        # print(f'{game.characters[1].heath.hp} / {game.characters[1].heath.hp_max}')
         while(not game.is_finished):
-            # print(f'BEGIN TURN -> {game.current_character}')
-            # print(f'{game.characters[0].heath.hp} / {game.characters[0].heath.hp_max}')
-            # print(f'{game.characters[1].heath.hp} / {game.characters[1].heath.hp_max}')
             game.next_turn()
             game.validate_turn()
             game.run_turn()
-            # print(f'END TURN')
-            # print(f'{game.characters[0].heath.hp} / {game.characters[0].heath.hp_max}')
-            # print(f'{game.characters[1].heath.hp} / {game.characters[1].heath.hp_max}')
-            # sleep(0.5)
 
         result = game.get_game_results()
         resultados.append(result)
-        # print(result.winner_name)
-        # print(result.diff_hp)
-        # print(resultados[ len(resultados)-10 : len(resultados) ])
-        # print('-----------------------------------------')
 
     # ---------------
     # Plot

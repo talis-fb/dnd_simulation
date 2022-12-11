@@ -1,7 +1,7 @@
 from time import sleep
 from typing import List
+from src.core.character import Character
 from src.impl.characters import gnoll as gnoll_module
-from src.impl.characters import goblin as goblin_module
 from src.impl.characters import goblin_boss as goblin_boss_module
 from src.impl.characters import devorator_de_mentes as devorator_de_mentes_mod
 from src.impl.characters import black_dragon_young as black_dragon_young_mod
@@ -12,14 +12,78 @@ from src.game.game import Game, GameResult, CharacterTestable
 import pandas as pd
 from src.plots.frequency_win import FrequencyPlot
 
+from rich.progress import track
+import inquirer
+
 def main():
+
+    all_characters = [
+        black_dragon_young_mod,
+        devorator_de_mentes_mod,
+        gnoll_module,
+        goblin_boss_module,
+        goblin_mod,
+        kobold_wing_mod,
+    ]
+
+    # ---------------
+    # Input
+    # ---------------
+    options_characters_input = {}
+    for ch in all_characters:
+        character:Character = ch.create()
+        options_characters_input[character.summary.name] = ch
+
+    questions = [
+      inquirer.List('character_1',
+                    message="Qual o primeiro personagem voce deseja que começe?",
+                    choices=options_characters_input.keys(),
+                ),
+      inquirer.List('character_2',
+                    message="E o segundo?",
+                    choices=options_characters_input.keys(),
+                ),
+        inquirer.Text('times',
+                      message="Quantas um numero que indica quantas vezes essa simulação deve ser executada (padrão: 100k):",
+                ),
+    ]
+
+    answers = inquirer.prompt(questions)
+    
+    # Validation 
+    if answers == None:
+        return 0
+
+    if answers['times'] == '':
+        answers['times'] = 100_000
+    print(answers)
+
+    print(r"""
+
+ _                 )      ((   ))     (
+(@)               /|\      ))_((     /|\                 _
+|-|`\            / | \    (/\|/\)   / | \               (@)
+| | ------------/--|-voV---\`|'/--Vov-|--\--------------|-|
+|-|                  '^`   (o o)  '^`                   | |
+| |                        `\Y/'                        |-|
+|-|                                                     | |
+| |                 Agora é só aguardar                 |-|
+|_|_____________________________________________________| |
+(@)       l   /\ /         ( (       \ /\   l         `\|-|
+          l /   V           \ \       V   \ l           (@)
+          l/                _) )_          \I
+                            `\ /'
+                              `
+
+          """)
+
 
     # ---------------
     # Definitions
     # ---------------
     characters_mods = [
-        black_dragon_young_mod,
-        devorator_de_mentes_mod,
+        options_characters_input[ answers['character_1'] ],
+        options_characters_input[ answers['character_2'] ],
     ]
 
     character_1 = CharacterTestable(
@@ -42,11 +106,9 @@ def main():
     # Simulation
     # ---------------
 
-    times = 5000
-    # times = 20000
+    times = int(answers['times'])
 
-    progress = 0
-    for _ in range(times):
+    for _ in track(range(times)):
         game.restart_game()
         while(not game.is_finished):
             game.next_turn()
@@ -55,10 +117,6 @@ def main():
 
         result = game.get_game_results()
         resultados.append(result)
-
-        progress += 1
-        if(progress % (times/100 ) == 0):
-            print(f'{(progress*100)/times}%')
 
     # ---------------
     # Plot

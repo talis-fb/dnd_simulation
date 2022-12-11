@@ -9,6 +9,8 @@ typing-extensions = "*"
 pandas = "*"
 numpy = "*"
 matplotlib = "*"
+inquirer = "*"
+rich = "*"
 
 [dev-packages]
 

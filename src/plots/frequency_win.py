@@ -6,13 +6,13 @@ import pandas as pd
 
 @dataclass
 class FrequencyPlot(Plot):
+    df: pd.DataFrame
     character_1:CharacterTestable
     character_2:CharacterTestable
 
     color_ch1 = 'blue'
     color_ch2 = 'red'
 
-    df = pd.DataFrame()
 
     def build(self):
         df_character_1 = self.df[self.df['winners'] == self.character_1.factory().summary.name]
@@ -49,7 +49,7 @@ class FrequencyPlot(Plot):
         plt.legend([ch1.summary.name, ch2.summary.name])
         plt.ylabel('Frequência vitória', fontsize=12)
         plt.xlabel('HP do vencedor ao fim', fontsize=12)
-        plt.title('Goblins VS Gnolls', fontsize=16)
+        plt.title(f'{ch1.summary.name} VS {ch2.summary.name}', fontsize=16)
 
         # Lines
         plt.axvline(ch1.heath.hp_max - 1, color=self.color_ch1, linestyle='dashed')

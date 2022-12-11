@@ -21,10 +21,17 @@ class FrequencyPlot(Plot):
         df_character_2 = self.df[self.df['winners'] == self.character_2.factory().summary.name]
         data_series_ch_2 = df_character_2[[ 'diff_hp' ]].value_counts()
 
-        self.df = pd.concat([ data_series_ch_1, data_series_ch_2 ], keys=[ self.character_1.name, self.character_2.name ], axis=1 ).sort_values(by='diff_hp')#.fillna(0)
+        # print('--Character1')
+        # print(data_series_ch_1.to_string())
+        # print('--Character2')
+        # print(data_series_ch_2.to_string())
+
+        self.df = pd.concat([ data_series_ch_1, data_series_ch_2 ], keys=[ self.character_1.name, self.character_2.name ], axis=1 ).sort_values(by='diff_hp')
         
         print('--DADOS para imprimir')
         print(self.df)
+
+        # self.df = self.df.sample(n=50)
 
         # WARNING: Metodo interpolate() cria valores lineares entre pontos sem dados (NaN). Nao é possivel destacar
         #  esses pontos dos demais de maneira facil. Está sendo usado para nao gerar um grafico estranho
@@ -39,11 +46,7 @@ class FrequencyPlot(Plot):
 
         maximun_value = len(self.df.index)
 
-        indexs_to_handle = list(range(maximun_value))
-        range_hp_axis = list(range(1, maximun_value+1))
-
-        plt.xticks(indexs_to_handle, range_hp_axis)
-        plt.grid()
+        values_registred = [ n[0] for n in self.df.index.to_list() ]
 
         # ADD Legend e labels
         plt.legend([ch1.summary.name, ch2.summary.name])
@@ -51,9 +54,19 @@ class FrequencyPlot(Plot):
         plt.xlabel('HP do vencedor ao fim', fontsize=12)
         plt.title(f'{ch1.summary.name} VS {ch2.summary.name}', fontsize=16)
 
-        # Lines
-        plt.axvline(ch1.heath.hp_max - 1, color=self.color_ch1, linestyle='dashed')
-        plt.axvline(ch2.heath.hp_max - 1, color=self.color_ch2, linestyle='dashed')
+        # Lines with max HP of each character
+        hp_max_ch1 = ch1.heath.hp_max
+        if hp_max_ch1 in values_registred:
+            plt.axvline(values_registred.index(hp_max_ch1), color=self.color_ch1, linestyle='dashed')
 
+        hp_max_ch2 = ch2.heath.hp_max
+        if hp_max_ch2 in values_registred:
+            plt.axvline(values_registred.index(hp_max_ch2), color=self.color_ch2, linestyle='dashed')
+
+        # Each point
+        indexs_to_handle = list(range(maximun_value))
+        plt.xticks(indexs_to_handle, values_registred)
+
+        plt.grid()
 
         plt.show()
